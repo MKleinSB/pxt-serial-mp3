@@ -23,6 +23,7 @@ namespace serialmp3 {
     }
 
     export enum Command {
+        //% block="Play next track"
         PLAY_NEXT_TRACK,
         PLAY_PREVIOUS_TRACK,
         INCREASE_VOLUME,
@@ -98,19 +99,18 @@ namespace serialmp3 {
 
 	/**
 	 * Connect to serial MP3 device with chip YX5300.
-     * @param mp3Rx MP3 device receiver pin (RX), eg: serialmp3.MakerBitPin.A0
-     * @param mp3Tx MP3 device transmitter pin (TX), eg: serialmp3.MakerBitPin.A1
+     * @param mp3RX MP3 device receiver pin (RX), eg: serialmp3.MakerBitPin.A0
+     * @param mp3TX MP3 device transmitter pin (TX), eg: serialmp3.MakerBitPin.A1
 	 */
-    //% subcategory="Serial MP3"
     //% blockExternalInputs=1
-    //% blockId="makebit_mp3_connect" block="connect MP3 with MP3 RX attached to %mp3Rx | and MP3 TX to %mp3Tx"
-    //% mp3Rx.fieldEditor="gridpicker" mp3Rx.fieldOptions.columns=3
-    //% mp3Rx.fieldOptions.tooltips="false"
-    //% mp3Tx.fieldEditor="gridpicker" mp3Tx.fieldOptions.columns=3
-    //% mp3Tx.fieldOptions.tooltips="false"
+    //% blockId="makebit_mp3_connect" block="connect with MP3 RX attached to %mp3RX | and MP3 TX attached to %mp3TX"
+    //% mp3RX.fieldEditor="gridpicker" mp3RX.fieldOptions.columns=3
+    //% mp3RX.fieldOptions.tooltips="false"
+    //% mp3TX.fieldEditor="gridpicker" mp3TX.fieldOptions.columns=3
+    //% mp3TX.fieldOptions.tooltips="false"
     //% weight=50
-    export function connectSerialMp3(mp3Rx: MakerBitPin, mp3Tx: MakerBitPin): void {
-        redirectSerial(mp3Rx, mp3Tx, BaudRate.BaudRate9600)
+    export function connectSerialMp3(mp3RX: MakerBitPin, mp3TX: MakerBitPin): void {
+        redirectSerial(mp3RX, mp3TX, BaudRate.BaudRate9600)
         spinWait(YX5300.REQUIRED_PAUSE_BETWEEN_COMMANDS_MILLIS)
         sendCommand(YX5300.selectDeviceTfCard())
         spinWait(1500)
@@ -127,7 +127,6 @@ namespace serialmp3 {
      * @param track track index, eg:1
      * @param repeat indicates whether to repeat the track, eg: serialmp3.Repeat.Once
      */
-    //% subcategory="Serial MP3"
     //% blockId="makebit_mp3_play_track" block="play MP3 track %track | %repeat"
     //% track.min=1 track.max=255
     //% weight=49
@@ -146,7 +145,6 @@ namespace serialmp3 {
      * @param folder folder index, eg:1
      * @param repeat indicates whether to repeat the track, eg: serialmp3.Repeat.Once
      */
-    //% subcategory="Serial MP3"
     //% blockId="makebit_mp3_play_track_from_folder" block="play MP3 track %track | from folder %folder | %repeat"
     //% track.min=1 track.max=255
     //% folder.min=1 folder.max=99
@@ -164,7 +162,6 @@ namespace serialmp3 {
      * @param folder folder index, eg:1
      * @param repeat indicates whether to repeat the folder, eg: serialmp3.Repeat.Once
      */
-    //% subcategory="Serial MP3"
     //% blockId="makebit_mp3_play_folder" block="play MP3 folder %folder | %repeat"
     //% folder.min=1 folder.max=99
     //% weight=47
@@ -183,7 +180,6 @@ namespace serialmp3 {
      * Set volume.
      * @param volume volume in the range of 0 to 30: eg: 30
      */
-    //% subcategory="Serial MP3"
     //% blockId="makebit_mp3_set_volume" block="set MP3 volume to %volume"
     //% volume.min=0 volume.max=30
     //% weight=46
@@ -195,7 +191,6 @@ namespace serialmp3 {
      * Dispatches a command to the MP3 device.
      * @param command command, eg: serialmp3.Command.PLAY_NEXT_TRACK
      */
-    //% subcategory="Serial MP3"
     //% blockId="makebit_mp3_run_command" block="run MP3 command %command"
     //% weight=45
     export function runMp3Command(command: Command): void {
@@ -237,7 +232,6 @@ namespace serialmp3 {
     * Do something when playback is completed.
     * @param handler body code to run when event is raised
     */
-    //% subcategory="Serial MP3"
     //% blockId=makebit_mp3_playback_completed block="on MP3 playback completed"
     //% weight=43
     export function onPlaybackCompleted(handler: Action) {
