@@ -3,8 +3,11 @@
 namespace serialmp3 {
 
     export enum MakerBitPin {
+        //% block="A0 (P0)"
         A0 = DigitalPin.P0,
+        //% block="A1 (P1)"
         A1 = DigitalPin.P1,
+        //% block="A2 (P2)"
         A2 = DigitalPin.P2,
         P8 = DigitalPin.P8,
         P12 = DigitalPin.P12,
@@ -25,13 +28,21 @@ namespace serialmp3 {
     export enum Command {
         //% block="Play next track"
         PLAY_NEXT_TRACK,
+        //% block="Play previous track"
         PLAY_PREVIOUS_TRACK,
+        //% block="Increase volume"
         INCREASE_VOLUME,
+        //% block="Decrease volume"
         DECREASE_VOLUME,
+        //% block="Pause"
         PAUSE,
+        //% block="Resume"
         RESUME,
+        //% block="Stop"
         STOP,
+        //% block="Mute"
         MUTE,
+        //% block="Unmute"
         UNMUTE,
     }
 
@@ -103,7 +114,7 @@ namespace serialmp3 {
      * @param mp3TX MP3 device transmitter pin (TX), eg: serialmp3.MakerBitPin.A1
 	 */
     //% blockExternalInputs=1
-    //% blockId="makebit_mp3_connect" block="connect with MP3 RX attached to %mp3RX | and MP3 TX attached to %mp3TX"
+    //% blockId="makebit_mp3_connect" block="connect MP3 with MP3 RX attached to %mp3RX | and MP3 TX attached to %mp3TX"
     //% mp3RX.fieldEditor="gridpicker" mp3RX.fieldOptions.columns=3
     //% mp3RX.fieldOptions.tooltips="false"
     //% mp3TX.fieldEditor="gridpicker" mp3TX.fieldOptions.columns=3
