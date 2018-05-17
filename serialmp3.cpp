@@ -2,7 +2,7 @@
 
 using namespace pxt;
 
-namespace makerbit {
+namespace serialmp3 {
     //% 
     void redirectSerial(int tx, int rx, int baud) {
       MicroBitPin* txp = getPin((int)tx); if (!txp) return;

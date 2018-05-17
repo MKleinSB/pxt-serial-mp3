@@ -1,5 +1,19 @@
-// MakerBit Serial MP3 blocks supporting Catalex Serial MP3 1.0
-namespace makerbit {
+// Microsoft MakeCode blocks supporting Catalex Serial MP3 Player 1.0
+//% color=#0fbc11 icon="\u272a" block="SerialMP3"
+namespace serialmp3 {
+
+    export enum MakerBitPin {
+        A0 = DigitalPin.P0,
+        A1 = DigitalPin.P1,
+        A2 = DigitalPin.P2,
+        P8 = DigitalPin.P8,
+        P12 = DigitalPin.P12,
+        P13 = DigitalPin.P13,
+        P14 = DigitalPin.P14,
+        P15 = DigitalPin.P15,
+        P16 = DigitalPin.P16
+    }
+
 
     export enum Repeat {
         //% block="once"
@@ -84,8 +98,8 @@ namespace makerbit {
 
 	/**
 	 * Connect to serial MP3 device with chip YX5300.
-     * @param mp3Rx MP3 device receiver pin (RX), eg: makerbit.MakerBitPin.P5
-     * @param mp3Tx MP3 device transmitter pin (TX), eg: makerbit.MakerBitPin.P8
+     * @param mp3Rx MP3 device receiver pin (RX), eg: serialmp3.MakerBitPin.A0
+     * @param mp3Tx MP3 device transmitter pin (TX), eg: serialmp3.MakerBitPin.A1
 	 */
     //% subcategory="Serial MP3"
     //% blockExternalInputs=1
@@ -105,13 +119,13 @@ namespace makerbit {
         control.inBackground(readSerial)
     }
 
-    //% shim=makerbit::redirectSerial
+    //% shim=serialmp3::redirectSerial
     export function redirectSerial(tx: number, rx: number, baud: number): void { return }
 
     /**
      * Play track.
      * @param track track index, eg:1
-     * @param repeat indicates whether to repeat the track, eg: makerbit.Repeat.Once
+     * @param repeat indicates whether to repeat the track, eg: serialmp3.Repeat.Once
      */
     //% subcategory="Serial MP3"
     //% blockId="makebit_mp3_play_track" block="play MP3 track %track | %repeat"
@@ -130,7 +144,7 @@ namespace makerbit {
      * Play track from folder.
      * @param track track index, eg:1
      * @param folder folder index, eg:1
-     * @param repeat indicates whether to repeat the track, eg: makerbit.Repeat.Once
+     * @param repeat indicates whether to repeat the track, eg: serialmp3.Repeat.Once
      */
     //% subcategory="Serial MP3"
     //% blockId="makebit_mp3_play_track_from_folder" block="play MP3 track %track | from folder %folder | %repeat"
@@ -148,7 +162,7 @@ namespace makerbit {
     /**
      * Play folder.
      * @param folder folder index, eg:1
-     * @param repeat indicates whether to repeat the folder, eg: makerbit.Repeat.Once
+     * @param repeat indicates whether to repeat the folder, eg: serialmp3.Repeat.Once
      */
     //% subcategory="Serial MP3"
     //% blockId="makebit_mp3_play_folder" block="play MP3 folder %folder | %repeat"
@@ -179,7 +193,7 @@ namespace makerbit {
 
     /**
      * Dispatches a command to the MP3 device.
-     * @param command command, eg: makerbit.Command.PLAY_NEXT_TRACK
+     * @param command command, eg: serialmp3.Command.PLAY_NEXT_TRACK
      */
     //% subcategory="Serial MP3"
     //% blockId="makebit_mp3_run_command" block="run MP3 command %command"

@@ -3,25 +3,25 @@
  * Serial MP3 tests 
  */
 
-makerbit.connectSerialMp3(makerbit.MakerBitPin.A0, makerbit.MakerBitPin.A1)
+serialmp3.connectSerialMp3(serialmp3.MakerBitPin.A0, serialmp3.MakerBitPin.A1)
 
-makerbit.playMp3Track(1, makerbit.Repeat.Once)
-makerbit.playMp3Track(1, makerbit.Repeat.Repeatedly)
-makerbit.playMp3TrackFromFolder(1, 1, makerbit.Repeat.Once)
-makerbit.playMp3TrackFromFolder(1, 1, makerbit.Repeat.Repeatedly)
-makerbit.playMp3Folder(1, makerbit.Repeat.Once)
-makerbit.playMp3Folder(1, makerbit.Repeat.Repeatedly)
-makerbit.setMp3Volume(30)
+serialmp3.playMp3Track(1, serialmp3.Repeat.Once)
+serialmp3.playMp3Track(1, serialmp3.Repeat.Repeatedly)
+serialmp3.playMp3TrackFromFolder(1, 1, serialmp3.Repeat.Once)
+serialmp3.playMp3TrackFromFolder(1, 1, serialmp3.Repeat.Repeatedly)
+serialmp3.playMp3Folder(1, serialmp3.Repeat.Once)
+serialmp3.playMp3Folder(1, serialmp3.Repeat.Repeatedly)
+serialmp3.setMp3Volume(30)
 
-makerbit.runMp3Command(makerbit.Command.PLAY_NEXT_TRACK)
-makerbit.runMp3Command(makerbit.Command.PLAY_PREVIOUS_TRACK)
-makerbit.runMp3Command(makerbit.Command.INCREASE_VOLUME)
-makerbit.runMp3Command(makerbit.Command.DECREASE_VOLUME)
-makerbit.runMp3Command(makerbit.Command.PAUSE)
-makerbit.runMp3Command(makerbit.Command.RESUME)
-makerbit.runMp3Command(makerbit.Command.STOP)
-makerbit.runMp3Command(makerbit.Command.MUTE)
-makerbit.runMp3Command(makerbit.Command.UNMUTE)
+serialmp3.runMp3Command(serialmp3.Command.PLAY_NEXT_TRACK)
+serialmp3.runMp3Command(serialmp3.Command.PLAY_PREVIOUS_TRACK)
+serialmp3.runMp3Command(serialmp3.Command.INCREASE_VOLUME)
+serialmp3.runMp3Command(serialmp3.Command.DECREASE_VOLUME)
+serialmp3.runMp3Command(serialmp3.Command.PAUSE)
+serialmp3.runMp3Command(serialmp3.Command.RESUME)
+serialmp3.runMp3Command(serialmp3.Command.STOP)
+serialmp3.runMp3Command(serialmp3.Command.MUTE)
+serialmp3.runMp3Command(serialmp3.Command.UNMUTE)
 
-makerbit.onPlaybackCompleted(() => {})
+serialmp3.onPlaybackCompleted(() => {})
 

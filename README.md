@@ -1,4 +1,4 @@
-# MakerBit
+# SerialMP3
 
 [![Build Status](https://travis-ci.org/1010Technologies/pxt-serial-mp3.svg?branch=master)](https://travis-ci.org/1010Technologies/pxt-serial-mp3)
 
