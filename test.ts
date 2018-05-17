@@ -1,13 +1,3 @@
-/**
- * Motor tests 
- */
-
-makerbit.runMotor(makerbit.Motor.A, 80)
-makerbit.stopMotor(makerbit.Motor.A)
-
-makerbit.runMotor(makerbit.Motor.B, -50)
-makerbit.stopMotor(makerbit.Motor.B)
-
 
 /**
  * Serial MP3 tests 
@@ -35,11 +25,3 @@ makerbit.runMp3Command(makerbit.Command.UNMUTE)
 
 makerbit.onPlaybackCompleted(() => {})
 
-
-/**
- * Touch tests 
- */
-
-makerbit.isElectrodeTouched(makerbit.MakerBitTouchElectrode.T5)
-makerbit.isElectrodeTouched(makerbit.MakerBitTouchElectrode.T16)
-makerbit.onElectrodeTouched(makerbit.MakerBitTouchElectrode.T6, () => {})
