@@ -1,5 +1,5 @@
 {
-    "name": "Serial MP3",
+    "name": "SerialMP3",
     "version": "1.0.0",
     "description": "The Serial MP3 package connects Microsoft MakeCode to the Catalex Serial MP3 Player v1.0",
     "license": "MIT",
