@@ -15,4 +15,4 @@ MIT
 
 ## Supported targets
 
-* for PXT/serial-mp3
+* for PXT/microbit
