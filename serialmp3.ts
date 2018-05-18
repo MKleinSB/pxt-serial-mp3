@@ -89,14 +89,14 @@ namespace serialmp3 {
         let rbuf: Buffer
 
         while (true) {
-            rbuf = serial.readBuffer(1);
+//            rbuf = serial.readBuffer(1);
 
             if (rbuf.getNumber(NumberFormat.UInt8LE, 0) == YX5300.ResponseType.RESPONSE_START_BYTE) {
 
                 responseBuffer.setNumber(NumberFormat.UInt8LE, 0, YX5300.ResponseType.RESPONSE_START_BYTE)
 
                 for (let pos = 1; pos < 10; pos++) {
-                    rbuf = serial.readBuffer(1)
+//                    rbuf = serial.readBuffer(1)
                     responseBuffer.write(pos, rbuf)
                 }
 
