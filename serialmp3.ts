@@ -139,7 +139,8 @@ namespace serialmp3 {
     //% weight=50
     export function connectSerialMp3(mp3RX: MakerBitPin, mp3TX: MakerBitPin): void {
 //        redirectSerial(mp3RX, mp3TX, BaudRate.BaudRate9600)
-        serial.redirect(mp3RX as number, mp3TX as number, BaudRate.BaudRate9600)
+//        serial.redirect(mp3RX as number, mp3TX as number, BaudRate.BaudRate9600)
+        serial.redirect(SerialPin.P0, SerialPin.P1, BaudRate.BaudRate9600)
         spinWait(YX5300.REQUIRED_PAUSE_BETWEEN_COMMANDS_MILLIS)
         sendCommand(YX5300.selectDeviceTfCard())
         spinWait(1500)
