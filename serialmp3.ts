@@ -4,17 +4,17 @@ namespace serialmp3 {
 
     export enum MakerBitPin {
         //% block="A0 (P0)"
-        A0 = DigitalPin.P0,
+        A0 = SerialPin.P0,
         //% block="A1 (P1)"
-        A1 = DigitalPin.P1,
+        A1 = SerialPin.P1,
         //% block="A2 (P2)"
-        A2 = DigitalPin.P2,
-        P8 = DigitalPin.P8,
-        P12 = DigitalPin.P12,
-        P13 = DigitalPin.P13,
-        P14 = DigitalPin.P14,
-        P15 = DigitalPin.P15,
-        P16 = DigitalPin.P16
+        A2 = SerialPin.P2,
+        P8 = SerialPin.P8,
+        P12 = SerialPin.P12,
+        P13 = SerialPin.P13,
+        P14 = SerialPin.P14,
+        P15 = SerialPin.P15,
+        P16 = SerialPin.P16
     }
 
 
@@ -139,7 +139,7 @@ namespace serialmp3 {
     //% weight=50
     export function connectSerialMp3(mp3RX: MakerBitPin, mp3TX: MakerBitPin): void {
 //        redirectSerial(mp3RX, mp3TX, BaudRate.BaudRate9600)
-        serial.redirect(mp3RX, mp3TX, BaudRate.BaudRate9600)
+        serial.redirect(mp3RX as number, mp3TX as number, BaudRate.BaudRate9600)
         spinWait(YX5300.REQUIRED_PAUSE_BETWEEN_COMMANDS_MILLIS)
         sendCommand(YX5300.selectDeviceTfCard())
         spinWait(1500)
