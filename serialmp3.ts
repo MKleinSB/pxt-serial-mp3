@@ -108,6 +108,23 @@ namespace serialmp3 {
     }
 
 
+    function readSerial2() {
+        let responseBuffer: Buffer = pins.createBuffer(10);
+        let rbuf: Buffer
+
+        responseBuffer.setNumber(NumberFormat.UInt8LE, 0, YX5300.ResponseType.RESPONSE_START_BYTE)
+
+        for (let pos = 1; pos < 10; pos++) {
+            rbuf = serial.readBuffer(1)
+            responseBuffer.write(pos, rbuf)
+        }
+
+        const response = YX5300.decodeResponse(responseBuffer)
+
+        handleResponse(response)
+    }
+
+
 	/**
 	 * Connect to serial MP3 device with chip YX5300.
      * @param mp3RX MP3 device receiver pin (RX), eg: serialmp3.MakerBitPin.A0
@@ -121,13 +138,15 @@ namespace serialmp3 {
     //% mp3TX.fieldOptions.tooltips="false"
     //% weight=50
     export function connectSerialMp3(mp3RX: MakerBitPin, mp3TX: MakerBitPin): void {
-        redirectSerial(mp3RX, mp3TX, BaudRate.BaudRate9600)
+//        redirectSerial(mp3RX, mp3TX, BaudRate.BaudRate9600)
+        serial.redirect(mp3RX, mp3TX, BaudRate.BaudRate9600)
         spinWait(YX5300.REQUIRED_PAUSE_BETWEEN_COMMANDS_MILLIS)
         sendCommand(YX5300.selectDeviceTfCard())
         spinWait(1500)
         sendCommand(YX5300.setVolume(30))
         sendCommand(YX5300.unmute())
-        control.inBackground(readSerial)
+        serial.onDataReceived("~", readSerial2)
+//        control.inBackground(readSerial)
     }
 
     //% shim=serialmp3::redirectSerial
