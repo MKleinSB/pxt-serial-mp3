@@ -86,18 +86,18 @@ namespace serialmp3 {
 
     function readSerial() {
         let responseBuffer: Buffer = pins.createBuffer(10);
-        let readBuffer: Buffer
+        let rbuf: Buffer
 
         while (true) {
-            readBuffer = serial.readBuffer(1);
+            rbuf = serial.readBuffer(1);
 
-            if (readBuffer.getNumber(NumberFormat.UInt8LE, 0) == YX5300.ResponseType.RESPONSE_START_BYTE) {
+            if (rbuf.getNumber(NumberFormat.UInt8LE, 0) == YX5300.ResponseType.RESPONSE_START_BYTE) {
 
                 responseBuffer.setNumber(NumberFormat.UInt8LE, 0, YX5300.ResponseType.RESPONSE_START_BYTE)
 
                 for (let pos = 1; pos < 10; pos++) {
-                    readBuffer = serial.readBuffer(1)
-                    responseBuffer.write(pos, readBuffer)
+                    rbuf = serial.readBuffer(1)
+                    responseBuffer.write(pos, rbuf)
                 }
 
                 const response = YX5300.decodeResponse(responseBuffer)
