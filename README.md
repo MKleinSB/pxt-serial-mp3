@@ -1,7 +1,5 @@
 # SerialMP3
 
-[![Build Status](https://travis-ci.org/1010Technologies/pxt-serial-mp3.svg?branch=master)](https://travis-ci.org/1010Technologies/pxt-serial-mp3)
-
 The Serial MP3 package connects Microsoft MakeCode to the Catalex Serial MP3 Player v1.0.
 
 http://makerbit.com/
