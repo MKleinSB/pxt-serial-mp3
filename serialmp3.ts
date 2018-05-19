@@ -22,7 +22,7 @@ namespace serialmp3 {
         //% block="once"
         Once = 0,
         //% block="repeat"
-        Repeatedly = 1,
+        Repeat = 1,
     }
 
     export enum Command {
@@ -134,7 +134,7 @@ namespace serialmp3 {
     export function redirectSerial(tx: number, rx: number, baud: number): void { return }
 
     /**
-     * Play track 00x.mp3 or 00x.wav from folder 00y
+     * Play mp3 or wav within a folder
      * @param track track index, eg:1
      * @param folder folder index, eg:1
      * @param repeat indicates whether to repeat the track, eg: serialmp3.Repeat.Once
@@ -146,7 +146,7 @@ namespace serialmp3 {
     export function playMp3TrackFromFolder(track: number, folder: number, repeat: Repeat): void {
         tracksToPlay = 0
         sendCommand(YX5300.playTrackFromFolder(track, folder))
-        if (repeat === Repeat.Repeatedly) {
+        if (repeat === Repeat.Repeat) {
             sendCommand(YX5300.enableRepeatModeForCurrentTrack())
         }
     }
@@ -177,7 +177,7 @@ namespace serialmp3 {
     }
 
     /**
-     * Play track 00x.mp3 or 00x.wav (unreliable on Mac platforms)
+     * Play mp3 or wav in the top-level directory
      * @param track track index, eg:1
      * @param repeat indicates whether to repeat the track, eg: serialmp3.Repeat.Once
      */
@@ -195,7 +195,7 @@ namespace serialmp3 {
     }
 
     /**
-     * Play songs in folder 00y
+     * Play all songs in a folder
      * @param folder folder index, eg:1
      * @param repeat indicates whether to repeat the folder, eg: serialmp3.Repeat.Once
      */
