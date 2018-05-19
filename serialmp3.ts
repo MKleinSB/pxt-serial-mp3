@@ -1,6 +1,5 @@
 // Microsoft MakeCode blocks supporting Catalex Serial MP3 Player 1.0
 //% color=#0fbc11 icon="\uf001" block="SerialMP3"
-// 19
 namespace serialmp3 {
 
     export enum MakerBitPin {
@@ -22,7 +21,7 @@ namespace serialmp3 {
     export enum Repeat {
         //% block="once"
         Once = 0,
-        //% block="repeatedly"
+        //% block="repeat"
         Repeatedly = 1,
     }
 
@@ -115,12 +114,12 @@ namespace serialmp3 {
      * @param mp3TX MP3 device transmitter pin (TX), eg: serialmp3.MakerBitPin.A1
 	 */
     //% blockExternalInputs=1
-    //% blockId="makebit_mp3_connect" block="connect MP3 with MP3 RX attached to %mp3RX | and MP3 TX attached to %mp3TX"
+    //% blockId="makebit_mp3_connect" block="connect MP3 RX to %mp3RX | and MP3 TX to %mp3TX"
     //% mp3RX.fieldEditor="gridpicker" mp3RX.fieldOptions.columns=3
     //% mp3RX.fieldOptions.tooltips="false"
     //% mp3TX.fieldEditor="gridpicker" mp3TX.fieldOptions.columns=3
     //% mp3TX.fieldOptions.tooltips="false"
-    //% weight=50
+    //% weight=100
     export function connectSerialMp3(mp3RX: MakerBitPin, mp3TX: MakerBitPin): void {
         redirectSerial(mp3RX, mp3TX, BaudRate.BaudRate9600)
         spinWait(YX5300.REQUIRED_PAUSE_BETWEEN_COMMANDS_MILLIS)
@@ -135,13 +134,57 @@ namespace serialmp3 {
     export function redirectSerial(tx: number, rx: number, baud: number): void { return }
 
     /**
-     * Play track.
+     * Play track 00x.mp3 or 00x.wav from folder 00y
+     * @param track track index, eg:1
+     * @param folder folder index, eg:1
+     * @param repeat indicates whether to repeat the track, eg: serialmp3.Repeat.Once
+     */
+    //% blockId="makebit_mp3_play_track_from_folder" block="play MP3 track %track | from folder %folder | %repeat"
+    //% track.min=1 track.max=255
+    //% folder.min=1 folder.max=99
+    //% weight=50
+    export function playMp3TrackFromFolder(track: number, folder: number, repeat: Repeat): void {
+        tracksToPlay = 0
+        sendCommand(YX5300.playTrackFromFolder(track, folder))
+        if (repeat === Repeat.Repeatedly) {
+            sendCommand(YX5300.enableRepeatModeForCurrentTrack())
+        }
+    }
+
+    /**
+     * Set volume, range 0 to 30
+     * @param volume volume in the range of 0 to 30: eg: 30
+     */
+    //% blockId="makebit_mp3_set_volume" block="set MP3 volume to %volume"
+    //% volume.min=0 volume.max=30
+    //% weight=40
+    export function setMp3Volume(volume: number): void {
+        sendCommand(YX5300.setVolume(volume))
+    }
+
+    /**
+    * Do something when playback is completed.
+    * @param handler body code to run when event is raised
+    */
+    //% blockId=makebit_mp3_playback_completed block="on MP3 playback completed"
+    //% weight=30
+    export function onPlaybackCompleted(handler: Action) {
+        control.onEvent(
+            MICROBIT_ID_SERIAL_MP3,
+            MICROBIT_SERIAL_MP3_PLAYBACK_COMPLETED,
+            handler
+        )
+    }
+
+    /**
+     * Play track 00x.mp3 or 00x.wav (unreliable on Mac platforms)
      * @param track track index, eg:1
      * @param repeat indicates whether to repeat the track, eg: serialmp3.Repeat.Once
      */
     //% blockId="makebit_mp3_play_track" block="play MP3 track %track | %repeat"
     //% track.min=1 track.max=255
-    //% weight=49
+    //% advanced=true
+    //% weight=50
     export function playMp3Track(track: number, repeat: Repeat): void {
         tracksToPlay = 0
         if (repeat === Repeat.Once) {
@@ -152,31 +195,14 @@ namespace serialmp3 {
     }
 
     /**
-     * Play track from folder.
-     * @param track track index, eg:1
-     * @param folder folder index, eg:1
-     * @param repeat indicates whether to repeat the track, eg: serialmp3.Repeat.Once
-     */
-    //% blockId="makebit_mp3_play_track_from_folder" block="play MP3 track %track | from folder %folder | %repeat"
-    //% track.min=1 track.max=255
-    //% folder.min=1 folder.max=99
-    //% weight=48
-    export function playMp3TrackFromFolder(track: number, folder: number, repeat: Repeat): void {
-        tracksToPlay = 0
-        sendCommand(YX5300.playTrackFromFolder(track, folder))
-        if (repeat === Repeat.Repeatedly) {
-            sendCommand(YX5300.enableRepeatModeForCurrentTrack())
-        }
-    }
-
-    /**
-     * Play folder.
+     * Play songs in folder 00y
      * @param folder folder index, eg:1
      * @param repeat indicates whether to repeat the folder, eg: serialmp3.Repeat.Once
      */
     //% blockId="makebit_mp3_play_folder" block="play MP3 folder %folder | %repeat"
     //% folder.min=1 folder.max=99
-    //% weight=47
+    //% advanced=true
+    //% weight=40
     export function playMp3Folder(folder: number, repeat: Repeat): void {
         tracksToPlay = 0
         if (repeat === Repeat.Once) {
@@ -189,22 +215,12 @@ namespace serialmp3 {
     }
 
     /**
-     * Set volume.
-     * @param volume volume in the range of 0 to 30: eg: 30
-     */
-    //% blockId="makebit_mp3_set_volume" block="set MP3 volume to %volume"
-    //% volume.min=0 volume.max=30
-    //% weight=46
-    export function setMp3Volume(volume: number): void {
-        sendCommand(YX5300.setVolume(volume))
-    }
-
-    /**
-     * Dispatches a command to the MP3 device.
+     * Send a command to the MP3 device.
      * @param command command, eg: serialmp3.Command.PLAY_NEXT_TRACK
      */
     //% blockId="makebit_mp3_run_command" block="run MP3 command %command"
-    //% weight=45
+    //% advanced=true
+    //% weight=30
     export function runMp3Command(command: Command): void {
         switch (command) {
             case Command.PLAY_NEXT_TRACK:
@@ -238,20 +254,6 @@ namespace serialmp3 {
                 sendCommand(YX5300.unmute())
                 break
         }
-    }
-
-    /**
-    * Do something when playback is completed.
-    * @param handler body code to run when event is raised
-    */
-    //% blockId=makebit_mp3_playback_completed block="on MP3 playback completed"
-    //% weight=43
-    export function onPlaybackCompleted(handler: Action) {
-        control.onEvent(
-            MICROBIT_ID_SERIAL_MP3,
-            MICROBIT_SERIAL_MP3_PLAYBACK_COMPLETED,
-            handler
-        )
     }
 
     function spinWait(millis: number) {
